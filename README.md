@@ -22,11 +22,15 @@ The workflow runs end to end: an authorised buyer opens a document request, dead
 
 **[Open the live showcase](https://ghadiator.github.io/)** · **[Read the case study](governance-as-code.md)**
 
-The showcase replays the workflow across its connected architecture, pausing at every human gate. Inspect the executed traces directly:
+The showcase replays the workflow across its connected architecture, pausing at every human gate. Each run below is selectable there under **Recorded run**, and its executed trace is served live:
 
-- [Correction loop — two review gates, two different recorded decisions](evidence/supplier_rate_correction.json)
-- [Invented narrative replaced by checked evidence](evidence/supplier_invented_narrative.json)
-- [A pending case that never completes](evidence/supplier_pending.json)
+| Recorded run | What it shows | Trace |
+| --- | --- | --- |
+| Incorrect rate → correction → approval | Two review gates, each with its **own** recorded decision — `REQUEST_CHANGES`, then `APPROVE` after the corrected version is revalidated from the start | [live](https://ghadiator.github.io/data/scenarios/supplier_rate_correction.json) · [repo copy](evidence/supplier_rate_correction.json) |
+| Invented narrative replaced by evidence | A proposal carries correct figures and a fabricated account. The verifier keeps the checked numbers and **restates the finding**; the invented wording reaches neither the review package nor the supplier draft | [live](https://ghadiator.github.io/data/scenarios/supplier_invented_narrative.json) · [repo copy](evidence/supplier_invented_narrative.json) |
+| Review gate holds an unresolved case | Terminal state stays `Awaiting_reviewer`. No decision recorded, nothing archived — and the replay offers no wording implying a reviewer acted | [live](https://ghadiator.github.io/data/scenarios/supplier_pending.json) · [repo copy](evidence/supplier_pending.json) |
+
+The live traces are what the deployed site itself reads; the repo copies are byte-identical snapshots. All thirteen recorded runs are in the [live catalog](https://ghadiator.github.io/data/scenarios/index.json).
 
 ### What actually runs, and what is a fixture
 
