@@ -8,7 +8,7 @@ A supplier sends a monthly billing submission. Someone has to establish that the
 
 Automating the checking is easy. Automating it so that a reviewer can later establish *what happened and which control intervened* is the actual problem. That is what this implementation is about: the route through validation, evidence checking and human review is explicit, and the record of it is the product.
 
-I built the workflow and a static, interactive showcase over it. The frontend connects four views — architecture, compliance mappings, assurance controls and recorded evidence — over the same executed traces.
+I built the workflow and a static, interactive showcase over it, live at **https://ghadiator.github.io/**. The frontend connects four views — architecture, compliance mappings, assurance controls and recorded evidence — over the same executed traces. The architecture view replays a recorded run across the connected workflow and stops at every human gate; the three cases below are selectable there as well as downloadable here.
 
 ## Inspect three recorded cases
 
@@ -61,4 +61,4 @@ The JSON files are copies of the showcase's exported traces. Each carries its so
 
 The source implementation is maintained in a private repository. The traces here make specific behaviours inspectable without implying that the full source is publicly available. This is a reference implementation, with no claim of production deployment, regulatory classification or compliance certification.
 
-[Back to my profile](README.md) · [Discuss the work](mailto:agh961235@gmail.com)
+[Open the live showcase](https://ghadiator.github.io/) · [Back to my profile](README.md) · [Discuss the work](mailto:agh961235@gmail.com)

@@ -20,9 +20,9 @@ The workflow runs end to end: an authorised buyer opens a document request, dead
 | Where does a person intervene? | The run suspends in an explicit `Awaiting_reviewer` state for an allowlisted reviewer. Hard check failures cannot be approved at all. |
 | Can a decision be reconstructed? | Ordered immutable event records, replayable traces, and provenance on every exported trace. |
 
-**[Read the case study](governance-as-code.md)**
+**[Open the live showcase](https://ghadiator.github.io/)** · **[Read the case study](governance-as-code.md)**
 
-Inspect the executed traces:
+The showcase replays the workflow across its connected architecture, pausing at every human gate. Inspect the executed traces directly:
 
 - [Correction loop — two review gates, two different recorded decisions](evidence/supplier_rate_correction.json)
 - [Invented narrative replaced by checked evidence](evidence/supplier_invented_narrative.json)
