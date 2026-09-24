@@ -2,9 +2,11 @@
 
 **AI governance and assurance, grounded in functional safety.**
 
-I build systems where AI proposals pass through explicit checks, human review gates and an auditable decision trail. My focus is turning governance requirements into mechanisms that can be inspected and tested.
+I build AI systems that can be proven wrong.
 
-My background is functional safety. I bring that discipline to consequential AI: define the boundary, enforce the control, and retain the evidence.
+A control nobody can falsify is a belief. A test that cannot observe what it protects is decoration. My background is functional safety, where the discipline is not a library of controls but a habit: state the claim so it can be shown false, then build the thing that tries.
+
+In practice that means controls shown with the hazard that required them **and the risk they still leave**, authority boundaries enforced by transitions that are absent rather than guarded, and assurance figures that withdraw themselves when the code they measured changes.
 
 ## Featured work · Automated Supplier Submission Review
 
@@ -19,6 +21,9 @@ The workflow runs end to end: an authorised buyer opens a document request, dead
 | Can correct numbers carry an invented story? | No. A verified finding is **restated from the checked evidence**; the proposal's own wording is discarded. |
 | Where does a person intervene? | The run suspends in an explicit `Awaiting_reviewer` state for an allowlisted reviewer. Hard check failures cannot be approved at all. |
 | Can a decision be reconstructed? | Ordered immutable event records, replayable traces, and provenance on every exported trace. |
+| How do you know the controls are the right ones? | Each is derived from a named hazard, and shown with the residual risk it does not cover. |
+| How do you know the tests work? | Every guard was verified by reverting its fix and confirming the test fails. |
+| What stops a stale claim? | The displayed test count is bound to a digest of its sources and disappears when they change. |
 
 **[Open the live showcase](https://ghadiator.github.io/)** · **[Read the case study](governance-as-code.md)**
 
@@ -45,6 +50,17 @@ These are **fixtures, not integrations** — the demo is hermetic and makes no n
 - Framework mappings (EU AI Act, ISO/IEC 42001, NIST AI RMF) are conceptual engineering references. They are not a conformity assessment, a certification, or a claim that this use case is high-risk under Annex III.
 
 **Built with:** Python · Pydantic · pytest · TypeScript · React / Next.js
+
+### Where the assurance was actually wrong
+
+The controls above held. The *assurance around them* did not, and finding that is the part I would want to be judged on. Recent examples, each now covered by a test that fails if it returns:
+
+- A §9 conformance catalog with **zero** rules for a whole slice — the metric was inverted for it, and the tests ran with auditing off, so nothing could see it.
+- A stream path bound at import in **six** places, defeating test isolation: the suite wrote to the real audit stream while appearing hermetic.
+- A browser check asserting a **13px icon** was visible instead of the architecture diagram it was written to guard.
+- A demo scenario green for months while never once performing the auto-approval it documented.
+
+Everything was passing. That is the failure mode functional safety trains you to expect.
 
 The engineering source is maintained in a private repository. The traces published here make specific behaviours inspectable without implying the full source is publicly available.
 
