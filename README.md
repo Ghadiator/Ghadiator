@@ -12,12 +12,29 @@ In practice that means controls shown with the hazard that required them **and t
 
 A reference implementation that reviews recurring service-provider billing submissions against an approved contract, rate card, purchase order, supporting documents and spending limit — and makes every control on that path inspectable.
 
-The workflow runs end to end: an authorised buyer opens a document request, deadline reminders are prepared, a submission is parsed into a typed model and linked to prior versions, deterministic checks run, figures are cross-checked against the approved contract, unusual cases enter a bounded proposal step whose findings must survive verification, and a **named reviewer** approves, rejects or requests a correction. A corrected version keeps its identity, increments its version and is revalidated from the start.
+The workflow runs end to end: an authorised buyer opens a document request, deadline reminders are prepared, a submission is parsed into a typed model and linked to prior versions, deterministic checks run, figures are cross-checked against the approved contract, unusual cases enter a bounded adversarial review, and a **named reviewer** approves, rejects or requests a correction. A corrected version keeps its identity, increments its version and is revalidated from the start.
+
+### The adversarial committee, on the architecture itself
+
+Three scripted personas, each a separate component you can select and watch execute — not one "AI step" box:
+
+| | Persona | Does | Cannot |
+| --- | --- | --- | --- |
+| 07 | **Proponent** | Argues for acceptance from the contract checks that passed | Decide |
+| 08 | **Opponent** | Proposes structured findings, so disagreement is produced rather than hoped for | Decide |
+| 09 | **Evidence firewall** *(CoVe)* | Re-derives every proposed finding from the invoice and contract | — |
+| 10 | **Judge** | Packages only the findings that survived | Approve, reject or close |
+
+The ordering is the point: **chain-of-verification runs between the Opponent and the Judge**, not after the committee. The Judge never sees a claim that has not already been re-derived from evidence — which is why a proposal with correct figures and an invented account cannot reach the review package.
+
+At most four proposals enter verification; a proposer that exceeds that or raises forfeits all of them, and the case still reaches a reviewer.
+
+[**Watch it run**](https://ghadiator.github.io/?scenario=supplier_invented_narrative) — the Opponent proposes a fabricated account, and the firewall keeps the numbers while discarding the story.
 
 | Governance question | What the implementation demonstrates |
 | --- | --- |
 | What constrains the workflow? | Frozen Pydantic models with `extra="forbid"`, Decimal money, an explicit state catalog and a closed transition table. |
-| Can a proposal proceed without evidence? | Fourteen deterministic checks run before any proposal step, and a verifier admits only case-bound computed findings. |
+| Can a proposal proceed without evidence? | Fourteen deterministic checks run before any persona speaks, and the firewall admits only case-bound computed findings. |
 | Can correct numbers carry an invented story? | No. A verified finding is **restated from the checked evidence**; the proposal's own wording is discarded. |
 | Where does a person intervene? | The run suspends in an explicit `Awaiting_reviewer` state for an allowlisted reviewer. Hard check failures cannot be approved at all. |
 | Can a decision be reconstructed? | Ordered immutable event records, replayable traces, and provenance on every exported trace. |

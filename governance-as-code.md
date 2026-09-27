@@ -38,6 +38,23 @@ The workflow reaches the reviewer gate and stops. No decision is recorded, nothi
 
 The showcase's replay control for this case reads *"Continue — no reviewer decision in this trace"*. A visitor replaying a recording is never offered wording that implies a reviewer already acted.
 
+## The committee is three components, not one box
+
+An "AI step" box tells a reader nothing about whether the roles are separable or whether anything checks them. So the architecture view shows each one, and the replay lights whichever is actually speaking:
+
+```
+07 Proponent  →  08 Opponent  →  09 Evidence firewall (CoVe)  →  10 Judge
+   argues for      proposes          re-derives every claim         packages
+   acceptance      findings          from invoice + contract        survivors
+```
+
+Two things that ordering makes visible, and a merged box hides:
+
+- **Verification sits mid-committee.** The firewall runs *between* the Opponent and the Judge. The Judge never weighs a claim that has not already been re-derived from the invoice and the contract.
+- **No persona holds authority.** None can approve, reject or close a case. The Judge packages; a named reviewer decides. That boundary is enforced by an absent transition in the state catalog, with a test asserting the absence.
+
+All three are **scripted stand-ins**. The runner makes no live model call, so this demonstrates the structure and its controls — never model quality.
+
 ## What I built
 
 - **Typed boundary:** frozen Pydantic models, `extra="forbid"`, Decimal money with an explicit rounding policy. Malformed input fails before any check runs and never becomes a case.
