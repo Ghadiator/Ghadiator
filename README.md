@@ -2,7 +2,7 @@
 
 **AI governance and assurance, grounded in functional safety.**
 
-I build AI systems that can be proven wrong.
+I can support AI teams with assurance that can be proven wrong.
 
 A control nobody can falsify is a belief. A test that cannot observe what it protects is decoration. My background is functional safety, where the discipline is not a library of controls but a habit: state the claim so it can be shown false, then build the thing that tries.
 
@@ -77,7 +77,7 @@ The controls above held. The *assurance around them* did not, and finding that i
 - A browser check asserting a **13px icon** was visible instead of the architecture diagram it was written to guard.
 - A demo scenario green for months while never once performing the auto-approval it documented.
 
-Everything was passing. That is the failure mode functional safety trains you to expect.
+Everything was passing. That is the failure mode functional safety trains you to look for, and catching it before it reaches a release is where I can support a team.
 
 The engineering source is maintained in a private repository. The traces published here make specific behaviours inspectable without implying the full source is publicly available.
 
