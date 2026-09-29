@@ -76,8 +76,13 @@ The controls above held. The *assurance around them* did not, and finding that i
 - A stream path bound at import in **six** places, defeating test isolation: the suite wrote to the real audit stream while appearing hermetic.
 - A browser check asserting a **13px icon** was visible instead of the architecture diagram it was written to guard.
 - A demo scenario green for months while never once performing the auto-approval it documented.
+- A browser check reading `oneLiner` where the export writes `one_liner` — so it iterated an empty list across four viewport widths and reported clean. Six scenarios were clipped mid-sentence at 768px behind that green result.
+- **14 of 28** hazard tests still passing with the hazard log deleted outright. Every check was a loop over a collection, and a loop over nothing passes.
+- The grading function at the centre of that hazard analysis returning a **constant** and passing **all 73 tests**: monotonicity holds under equality, the value is in range, and it satisfies the controllability floor. It could ignore severity, exposure and controllability entirely.
 
 Everything was passing. That is the failure mode functional safety trains you to look for, and catching it before it reaches a release is where I can support a team.
+
+The last three share a shape worth naming, because it is portable: **a property test is satisfiable by a degenerate implementation in a way an example test is not.** The same constant-stub mutations against the workflow layer are caught five to six tests deep — its tests assert concrete outputs on named cases. Only the grading layer was blind, because its tests asserted abstract properties of a scale. Each of these was found by deleting the thing a test defends and checking it actually goes red.
 
 The engineering source is maintained in a private repository. The traces published here make specific behaviours inspectable without implying the full source is publicly available.
 
