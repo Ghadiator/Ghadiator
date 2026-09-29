@@ -82,7 +82,11 @@ The controls above held. The *assurance around them* did not, and finding that i
 
 Everything was passing. That is the failure mode functional safety trains you to look for, and catching it before it reaches a release is where I can support a team.
 
-The last three share a shape worth naming, because it is portable: **a property test is satisfiable by a degenerate implementation in a way an example test is not.** The same constant-stub mutations against the workflow layer are caught five to six tests deep — its tests assert concrete outputs on named cases. Only the grading layer was blind, because its tests asserted abstract properties of a scale. Each of these was found by deleting the thing a test defends and checking it actually goes red.
+All seven share a shape, and it is more portable than any of the bugs: **every one of these tests asserted something true, but too weak to fail for the reason that mattered.** Non-strict monotonicity is true. A range check is true. A loop over an empty collection is true. An icon being visible is true. None of them can go red when the thing they were written to defend is gone — which makes "does it pass?" the wrong question to review a test with.
+
+The specific version of that in the grading layer is worth separating out: a property test is satisfiable by a degenerate implementation in a way an example test is not. The same constant-stub mutations against the workflow layer are caught five to six tests deep, because its tests assert concrete outputs on named cases; only the grading layer was blind, because its tests asserted abstract properties of a scale. Where the real relation is genuinely weak — a sum crossing thresholds has plateaus, so strict monotonicity would be false — the strength has to be bought back with pinned examples rather than a stronger assertion that would later be loosened.
+
+Each of these was found the same way: delete the thing a test defends, and check it actually goes red.
 
 The engineering source is maintained in a private repository. The traces published here make specific behaviours inspectable without implying the full source is publicly available.
 
