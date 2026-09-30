@@ -70,12 +70,12 @@ These are **fixtures, not integrations** — the demo is hermetic and makes no n
 
 ### Where the assurance was actually wrong
 
-The controls above held. The *assurance around them* did not, and finding that is the part I would want to be judged on. Recent examples, each now covered by a test that fails if it returns:
+The controls above held. The *assurance around them* did not, and finding that is the part I would want to be judged on. Each of these is now covered by a test that fails if it returns.
 
-- A §9 conformance catalog with **zero** rules for a whole slice — the metric was inverted for it, and the tests ran with auditing off, so nothing could see it.
-- A stream path bound at import in **six** places, defeating test isolation: the suite wrote to the real audit stream while appearing hermetic.
-- A browser check asserting a **13px icon** was visible instead of the architecture diagram it was written to guard.
-- A demo scenario green for months while never once performing the auto-approval it documented.
+Earlier ones, briefly: a conformance catalog with **zero** rules for a whole slice, invisible because those tests ran with auditing off; a stream path bound at import in **six** places, so the suite wrote to the real audit stream while appearing hermetic; a browser check guarding a **13px icon** instead of the architecture diagram it was written for; and a demo scenario green for months without once performing the auto-approval it documented.
+
+Three more recent ones are worth stating in full, because together they show what the whole set has in common:
+
 - A browser check reading `oneLiner` where the export writes `one_liner` — so it iterated an empty list across four viewport widths and reported clean. Six scenarios were clipped mid-sentence at 768px behind that green result.
 - **14 of 28** hazard tests still passing with the hazard log deleted outright. Every check was a loop over a collection, and a loop over nothing passes.
 - The grading function at the centre of that hazard analysis returning a **constant** and passing **all 73 tests**: monotonicity holds under equality, the value is in range, and it satisfies the controllability floor. It could ignore severity, exposure and controllability entirely.
